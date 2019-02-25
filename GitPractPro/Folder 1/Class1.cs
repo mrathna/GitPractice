@@ -8,5 +8,6 @@ namespace GitPractPro
 {
     public class Class1
     {
+        // hellow
     }
 }

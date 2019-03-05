@@ -1,0 +1,14 @@
+D:\GitPract\GitPractSol\GitPractPro\bin\Debug\GitPractPro.dll
+D:\GitPract\GitPractSol\GitPractPro\bin\Debug\GitPractPro.pdb
+D:\GitPract\GitPractSol\GitPractPro\bin\Debug\nunit.framework.dll
+D:\GitPract\GitPractSol\GitPractPro\bin\Debug\WebDriver.dll
+D:\GitPract\GitPractSol\GitPractPro\bin\Debug\WebDriver.Support.dll
+D:\GitPract\GitPractSol\GitPractPro\bin\Debug\nunit.framework.pdb
+D:\GitPract\GitPractSol\GitPractPro\bin\Debug\nunit.framework.xml
+D:\GitPract\GitPractSol\GitPractPro\bin\Debug\WebDriver.xml
+D:\GitPract\GitPractSol\GitPractPro\bin\Debug\WebDriver.Support.xml
+D:\GitPract\GitPractSol\GitPractPro\obj\Debug\GitPractPro.csprojAssemblyReference.cache
+D:\GitPract\GitPractSol\GitPractPro\obj\Debug\GitPractPro.csproj.CoreCompileInputs.cache
+D:\GitPract\GitPractSol\GitPractPro\obj\Debug\GitPractPro.csproj.CopyComplete
+D:\GitPract\GitPractSol\GitPractPro\obj\Debug\GitPractPro.dll
+D:\GitPract\GitPractSol\GitPractPro\obj\Debug\GitPractPro.pdb

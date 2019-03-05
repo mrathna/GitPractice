@@ -9,6 +9,8 @@ namespace GitPractPro.Folder_2
 {
     class CustomExpectedCondition:Class1
     {
+
+        // wowl
         public static Func<IWebDriver,bool> WaitFor(By by)
 
         {

@@ -20,7 +20,8 @@ namespace GitPractPro
             //added trhible comment
             // added  4 ht comment
             //fifth
-            // sync testfasdfasd
+            // sync 
+            // removed some part of above line and added this comment
             ChromeOptions options = new ChromeOptions();
             ChromeDriverService chrService = ChromeDriverService.CreateDefaultService("C://Drivers//");
              objDriver = new ChromeDriver(chrService, options);

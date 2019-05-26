@@ -32,7 +32,7 @@ namespace GitPractPro
             
           
 
-            objDriver.FindElement(By.LinkText("This is a Ajax link")).Click();
+            objDriver.FindElement(By.LinkText("This is a Ajax linkk")).Click();
         }
     }
 }

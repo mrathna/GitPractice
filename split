@@ -1,0 +1,1 @@
+winDriver.FindElement(By.XPath("//SplitButton[@Name='Save']/SplitButton")).Click();

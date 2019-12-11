@@ -1,0 +1,11 @@
+_winDriver = new WinAppDriverHelper(_settings).GetWindowsDriver(test);
+            _winDriver.FindElement(By.XPath("//SplitButton[@Name='Save']/SplitButton")).Click();
+             test.Info("Save Split button clicked on IE Popup ");
+            _winDriver.FindWindowsElement(By.Name("Save as"), test).Click();
+            test.Info("Save as button clicked from IE Popup");            
+            string absPathToTemplateDir = PathHelper.GetAbsolutePathRelativeToProjectPath(GlobalSettings.TemplateRelativePath);
+            var downloadDirectory = PathHelper.GetAbsolutePathRelativeToProjectPath(GlobalSettings.TemplateRelativePath);
+			_winDriver.FindWindowsElement(By.ClassName("AppControlHost"), test).FindElement(By.Name("File name:")).SendKeys(fileName);
+            test.Info("Entered file name:"+ fileName);
+            _winDriver.FindWindowsElement(By.Name("Save"), test).Click();
+            test.Info("Clicked on save button");

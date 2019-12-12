@@ -1,0 +1,2 @@
+nunit3-console.exe --out=CorporatePayments\Encompass.Testing\Results\UI\UiResult.txt "--result=CorporatePayments\Encompass.Testing\Results\UI\UiResult.xml" CorporatePayments\Encompass.Testing\bin\Debug\Encompass.Testing.dll --where "cat=EQ???"
+replace the EQ??? with the actual test case EQ tag

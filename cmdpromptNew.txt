@@ -1,0 +1,11 @@
+nunit3-console.exe --out=CorporatePayments\Encompass.Testing\Results\UI\UiResult.txt "--result=CorporatePayments\Encompass.Testing\Results\UI\UiResult.xml" CorporatePayments\Encompass.Testing\bin\Debug\Encompass.Testing.dll --where "cat=EQ???"
+
+
+
+nunit3-console.exe --out=CorporatePayments\Encompass.Testing\Results\UI\UiResult.txt "--result=CorporatePayments\Encompass.Testing\Results\UI\UiResult.xml" CorporatePayments\Encompass.Testing\bin\Debug\Encompass.Testing.dll --where "cat=EQ???"
+
+
+===============================below is valid one=================================
+
+C:\Branch\IE-New\cpraft>packages\NUnit.ConsoleRunner.3.8.0\tools\nunit3-console.exe --out=CorporatePayments\Encompass.Testing\Results\UI\UiResult.txt "--result=CorporatePayments\Encompass.Testing\Results\UI\UiResult.xml" CorporatePayments\Encompass.Testing\bin\Debug\Encompass.Testing.dll --where "cat=WinAppTest"
+

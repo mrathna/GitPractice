@@ -1,0 +1,118 @@
+[DllImport("user32.dll", SetLastError = true)]
+        public static extern IntPtr FindWindow(string className, string windowTitle);
+        [Test]
+        public void FileDownLoad2()
+        {
+            string title = "WEX";
+            Thread.Sleep(1000);
+            //Get the Internet Explorer window handle using the window title
+            var ieWindowHandle = Process.GetProcesses().FirstOrDefault(process => process.MainWindowTitle.Contains(title))?.MainWindowHandle;
+            var dialogElements = AutomationElement.FromHandle(ieWindowHandle ?? IntPtr.Zero).FindAll(TreeScope.Children, Condition.TrueCondition);
+            foreach (AutomationElement element in dialogElements)
+            {
+               var ChildElements = element.FindAll(TreeScope.Children, Condition.TrueCondition);
+
+                foreach (AutomationElement ChildElement in ChildElements)//
+                {
+                 
+                   
+                    
+                    var DownloadCtrls = ChildElement.FindAll(TreeScope.Children, Condition.TrueCondition);
+                    foreach (AutomationElement ctrlButton in DownloadCtrls)
+                    {
+                           var items = ctrlButton.FindAll(TreeScope.Children, Condition.TrueCondition);
+                            foreach (AutomationElement item in items)
+                            {
+                                if (item.Current.Name.ToLower().Equals("6"))
+                                {
+                                    ((InvokePattern)item.GetCurrentPattern(InvokePattern.Pattern)).Invoke();
+                                    var saveMenuHandle = FindWindow("#32768", "");
+                                    var subMenuItems = AutomationElement.FromHandle(saveMenuHandle).FindAll(TreeScope.Children, Condition.TrueCondition);
+                                    foreach (AutomationElement item1 in subMenuItems)
+                                    {
+                                        if (item1.Current.Name.ToLower() == "save as")
+                                        {
+                                            var saveAsMenuItem = item1.GetCurrentPattern(InvokePattern.Pattern) as InvokePattern;
+                                            saveAsMenuItem.Invoke();
+                                        }
+                                    }
+
+                                }
+                            }
+
+                        }
+                }
+            }
+
+
+            Thread.Sleep(8000);
+            Window window = Desktop.Instance.Windows().Find(obj => obj.Name.Contains("Save As"));
+
+            window.Get<TextBox>(SearchCriteria.ByAutomationId("1001")).SetValue("Merchat.xlsx");//1001
+            window.Get<Button>(SearchCriteria.ByAutomationId("1")).Click();//1
+        }
+
+        //=========================
+        [Test]
+        public static void IeDownLoadSaveAs()
+        {
+       
+            string title = "WEX";
+
+            Thread.Sleep(1000);
+            //Get the Internet Explorer window handle using the window title
+            var parentHandle0 = Process.GetProcesses().FirstOrDefault(process => process.MainWindowTitle.Contains(title))?.MainWindowHandle;
+            var parentHandle = AutomationElement.FromHandle(parentHandle0 ?? IntPtr.Zero).FindAll(TreeScope.Children, Condition.TrueCondition);
+            // var parentElements = AutomationElement.FromHandle(parentHandle).FindAll(TreeScope.Children, Condition.TrueCondition);
+
+            foreach (AutomationElement parentElement in parentHandle)
+            {
+                // Identidfy Download Manager Window in Internet Explorer
+                //if (parentElement.Current.ClassName == "Frame Notification Bar")
+                //{
+                    var childElements = parentElement.FindAll(TreeScope.Children, Condition.TrueCondition);
+                    // Idenfify child window with the name Notification Bar or class name as DirectUIHWND 
+                    foreach (AutomationElement childElement in childElements)
+                    {
+                        if (childElement.Current.Name == "Notification bar" || childElement.Current.ClassName == "DirectUIHWND")
+                        {
+
+                            var downloadCtrls = childElement.FindAll(TreeScope.Descendants, Condition.TrueCondition);
+                            foreach (AutomationElement ctrlButton in downloadCtrls)
+                            {
+                                Console.WriteLine(ctrlButton.Current.Name);
+                                //Now invoke the button click whichever you wish
+                                if (ctrlButton.Current.Name.ToLower() == "6")
+                                {
+                                    var saveSubMenu = ctrlButton.GetCurrentPattern(InvokePattern.Pattern) as InvokePattern;
+                                    saveSubMenu.Invoke();
+
+                                    var saveMenuHandle = WindowHandleInfo.FindWindow("#32768", "");
+                                    var subMenuItems = AutomationElement.FromHandle(saveMenuHandle).FindAll(TreeScope.Children, Condition.TrueCondition);
+
+                                    foreach (AutomationElement item in subMenuItems)
+                                    {
+                                        if (item.Current.Name.ToLower() == "save as")
+                                        {
+                                            var saveAsMenuItem = item.GetCurrentPattern(InvokePattern.Pattern) as InvokePattern;
+                                            saveAsMenuItem.Invoke();
+                                        }
+                                    }
+
+                                }
+
+                            }
+                       }
+                    }
+
+
+               // }
+            }
+
+
+            Thread.Sleep(8000);
+            Window window = Desktop.Instance.Windows().Find(obj => obj.Name.Contains("Save As"));
+
+            window.Get<TextBox>(SearchCriteria.ByAutomationId("1001")).SetValue("Merchat.xlsx");//1001
+            window.Get<Button>(SearchCriteria.ByAutomationId("1")).Click();//1
+        }

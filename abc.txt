@@ -1,0 +1,61 @@
+   [DllImport("user32.dll", SetLastError = true)]
+        public static extern IntPtr FindWindow(string className, string windowTitle);
+
+        public static void FileDownLoad1(ExtentTest test)
+        {
+            string title = "WEX";
+
+            Thread.Sleep(1000);
+            //Get the Internet Explorer window handle using the window title
+            var parentHandle0 = Process.GetProcesses().FirstOrDefault(process => process.MainWindowTitle.Contains(title))?.MainWindowHandle;
+            var parentHandle = AutomationElement.FromHandle(parentHandle0 ?? IntPtr.Zero).FindAll(TreeScope.Children, Condition.TrueCondition);
+            // var parentElements = AutomationElement.FromHandle(parentHandle).FindAll(TreeScope.Children, Condition.TrueCondition);
+
+            foreach (AutomationElement parentElement in parentHandle)
+            {
+                // Identidfy Download Manager Window in Internet Explorer
+                //if (parentElement.Current.ClassName == "Frame Notification Bar")
+                //{
+                var childElements = parentElement.FindAll(TreeScope.Children, Condition.TrueCondition);
+                // Idenfify child window with the name Notification Bar or class name as DirectUIHWND 
+                foreach (AutomationElement childElement in childElements)
+                {
+                    if (childElement.Current.Name == "Notification bar" || childElement.Current.ClassName == "DirectUIHWND")
+                    {
+
+                        var downloadCtrls = childElement.FindAll(TreeScope.Descendants, Condition.TrueCondition);
+                        foreach (AutomationElement ctrlButton in downloadCtrls)
+                        {
+                            Console.WriteLine(ctrlButton.Current.Name);
+                            //Now invoke the button click whichever you wish
+                            if (ctrlButton.Current.Name.ToLower() == "")
+                            {
+                                var saveSubMenu = ctrlButton.GetCurrentPattern(InvokePattern.Pattern) as InvokePattern;
+                                saveSubMenu.Invoke();
+                                test.Info("Clicked on split button");
+                                Thread.Sleep(3000);
+                                SendKeys.SendWait("{DOWN}");
+                                Thread.Sleep(3000);
+                                SendKeys.SendWait("{ENTER}");
+                                Thread.Sleep(3000);
+                                test.Info("Clicked on save as button");
+
+
+                            }
+
+                        }
+                    }
+                }
+
+
+                // }
+            }
+
+
+            Thread.Sleep(8000);
+            Window window = Desktop.Instance.Windows().Find(obj => obj.Name.Contains("Save As"));
+            window.Get<TextBox>(SearchCriteria.ByAutomationId("1001")).SetValue("Merchat.xlsx");//1001
+            test.Info("Entered file path:");
+            window.Get<Button>(SearchCriteria.ByAutomationId("1")).Click();//1
+            test.Info("Clicked on save button to");
+        }

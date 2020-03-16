@@ -1,0 +1,444 @@
+Role: 1 used
+if (nameRole.ToLowerInvariant().Equals(StringKeys.ROLE.manageroptionrole.ToString(),StringComparison.CurrentCultureIgnoreCase))
+			{
+				VelocityLimitTxt = "10";
+				ApprovalLimitTxt = "10";
+			}	
+=====================================
+FI: 99+ used
+ // Only applicable for some FIs
+            if (!GlobalSettings.FI.Equals(StringKeys.FI.WEX.ToString()))
+or if (!GlobalSettings.FI.ToString().Equals(StringKeys.FI.AMEX.ToString()))
+            {
+or
+if (!GlobalSettings.FI.Equals(StringKeys.FI.COMMERCE.ToString(), StringComparison.InvariantCultureIgnoreCase))
+or
+  if (GlobalSettings.FI.Equals(StringKeys.FI.CENTRAL.ToString()) || GlobalSettings.FI.Equals(StringKeys.FI.KEYBANK.ToString()))
+                {
+                    accountMgmtPage.SetSearchValueByValue("Ghost");
+                }
+                else
+==========================================================
+FIsRequiringReduceCreditLimitOnMLogClose: 1 used
+May be it is similar to above FI, check once
+ if(StringKeys.FIsRequiringReduceCreditLimitOnMLogClose.Contains(GlobalSettings.FI))
+ notifyMeMerchantLogSettings.ReduceCreditLimitOnMLogClose = setCheckbox;
+                {
+                    accountMgmtPage.SetSearchValueByValue("Individual");
+                }
+
+==================================
+FIsRequiringOrgLevelChangesForSUGA -10
+if (StringKeys.FIsRequiringOrgLevelChangesForSUGA.Contains(_fiName))
+or
+ if (StringKeys.FIsRequiringOrgLevelChangesForSUGA.Contains(GlobalSettings.FI))
+============================================================================
+FIsRequiringUniqueIdAndAltPh-10
+if (StringKeys.FIsRequiringAddActivationCode.Contains(GlobalSettings.FI))
+                            _editAccount.ActivationCode = "123456789";
+                        if (StringKeys.FIsRequiringUniqueIdAndAltPh.Contains(GlobalSettings.FI))
+                            _editAccount.AlternativePhone = "1123456678";
+_editAccount.AlternativePhone = "2365489987";
+==============================
+FIsRequiringDisputeReplyEmailForOrg-1
+    if (StringKeys.FIsRequiringDisputeReplyEmailForOrg.Contains(GlobalSettings.FI))
+                    _editAP.DisputeReplyEmailAddress = "Test@test.com
+=================================================
+FIsBlockingCardUpdateOnAddress-1
+
+  if (!StringKeys.FIsBlockingCardUpdateOnAddress.Contains(GlobalSettings.FI))
+                            {
+                                _editAccount.FirstName = Settings.CeatedOrgId;
+                                _editAccount.LastName = "CARD" + i;
+                            }
+=========================================================
+FIsNotHavingInvoiceParserJTA -2
+ if (!(StringKeys.FIsNotHavingInvoiceParserJTA.Contains(GlobalSettings.FI)
+==============================
+ FIsRequiringInstantApprovalWhileCreatingUser-11
+ if (StringKeys.FIsRequiringInstantApprovalWhileCreatingUser.Contains(GlobalSettings.FI))
+                    _accEditPage.InstantApprovalLimitTxt = "5";4
+================
+ FIsSupportingPlogLimits -2 
+  if (StringKeys.FIsSupportingPlogLimits.Contains(GlobalSettings.FI))
+    .....
+else
+ test.Info($"The FI {GlobalSettings.FI} doesnt support Approval/Velocity Limit.");
+=================
+
+FIsNotRequiringInstantApprovalInAlerts -3
+if (!StringKeys.FIsNotRequiringInstantApprovalInAlerts.Contains(GlobalSettings.FI))
+				{
+else
+Settings.EnCompassExtentTest.Warning("Skipping the Step to involving Instant Approval due to the target FI");
+===========================
+FIsWithNoChangesAtCards -1  -- imp
+ _editAccount.PressSave();
+                            if (StringKeys.FIsWithNoChangesAtCards.Contains(GlobalSettings.FI))
+                                _editAccount.CancelBtn();
+                            else
+                            {
+                                _editAccount.Confirm();
+                                test.Info("Card Account updated");
+                                Check.That(_editAccount.SuccessMessage).Contains(successMsg);
+                            }
+                        }
+==============================================
+FIsWithFinancialCodeInformation - 1
+  if (StringKeys.FIsWithFinancialCodeInformation.Contains(GlobalSettings.FI))
+            {
+                var FCPinfo = Settings.EnCompassWebDriver.WaitForVisible(By.XPath(_financialCode9XPath));
+                Check.That(FCPinfo.Text).Contains("PROFILE1");
+            }
+            else
+            {
+                var FCPinfo = Settings.EnCompassWebDriver.WaitForVisible(By.XPath(_financialCode8XPath));
+                Check.That(FCPinfo.Text).Contains("PROFILE1");
+            }
+===========================
+FIsSetSNNandConfirm - 1
+	if (StringKeys.FIsSetSNNandConfirm.Contains(GlobalSettings.FI))
+					_forceRegister.SetSNNandConfirm();
+=====================================
+
+FIsRequiringAddPrimaryPhone - 20
+ if (StringKeys.FIsRequiringAddPrimaryPhone.Contains(GlobalSettings.FI))
+                    _accEditPage.PrimaryPhone = "1123456678";
+============================================================
+FIsRequiringAddAlternativePhone-4
+if (StringKeys.FIsRequiringAddAlternativePhone.Contains(GlobalSettings.FI))
+				{
+					editAccount.ExpandCardholder();
+					editAccount.AlternativePhone = "1123456678";
+				}
+===========================================
+ FIsRequiringAddActivationCode -8
+
+                if (StringKeys.FIsRequiringAddActivationCode.Contains(GlobalSettings.FI))
+                {
+                    _editAccount.ExpandCardholder();  /// or without this
+                    _editAccount.ActivationCode = "123456789";
+                } 
+==============================
+ FIsMerchantLogSettingsAcceptAlert -1
+if (setCheckbox == true && !StringKeys.FIsMerchantLogSettingsAcceptAlert.Contains(GlobalSettings.FI))
+				{
+                    Settings.EnCompassWebDriver.WaitElementBeClickable("//button[text() = 'Confirm']");
+                    notifyMeMerchantLogSettings.ConfirmOnModal();
+					test.Info("Check the checkbox Reduce Credit Limit on Merchant Log Close");
+				}
+				else
+					test.Info("Uncheck the checkbox Reduce Credit Limit on Merchant Log Close");
+=======================================
+FIsCardsUpdateBlocked -41
+  //Search and assign the both cards
+                    if (!StringKeys.FIsCardsUpdateBlocked.Contains(GlobalSettings.FI))
+                        _accEditPage.SearchAndSelectCard("Last Name", cardName);
+                    else
+                    {
+                        string cardnum = cardName.Substring(cardName.IndexOf("CARD") + 4, 1);
+                        _accEditPage.SearchAndSelectCard("Account Number", Settings.Scenario["CardCreditNumber" + cardnum].ToString());
+                    }
+or
+if (!StringKeys.FIsCardsUpdateBlocked.Contains(GlobalSettings.FI))
+				{
+					_createProxy.SetSearchTermByText("Last Name");
+					_createProxy.SearchValue = "CARD4";
+				}
+				else
+				{
+					string card4 = Settings.Scenario["CardCreditNumber4"].ToString();
+					_createProxy.SetSearchTermByText("Account Number");
+					_createProxy.SearchValue = card4;
+				}
+****************************************************************************++++++++++++++++++++++++++++++++++++++++++++++++++++++++*******************************************************************
+                                                   ==============================dict key==================================
+FIsAccountStatusCardProfile - 1
+StringKeys.FIsAccountStatusCardProfile.TryGetValue(GlobalSettings.FI, out string accountStatus);
+                    _editCardProfile.SetAccountStatus(accountStatus);
+============================
+FIsRemitTemplateMessage - 1
+   if (StringKeys.FIsRemitTemplateMessage.TryGetValue(GlobalSettings.FI, out string RemitTemplateMessage) && templateType.ToLowerInvariant().Trim().Equals("default"))
+                {
+                    Check.That(RemitTemplateMessage).Equals(_mngPaymentMethods.PaymentMethodGrid.GetColumnText("Remit Template").ToList()[0]);
+                    test.Info($"Check That: Remit Template Expected value: {template.ToString()}");
+                }
+                else
+                {
+                    Check.That(template.ToString()).Equals(_mngPaymentMethods.PaymentMethodGrid.GetColumnText("Remit Template").ToList()[0]);
+                    test.Info($"Check That: Remit Template Expected value: {template.ToString()}");
+                }
+=======================================
+FIsRemitTemplateMessage - 1
+ if(StringKeys.FIsRegistrationUserID.TryGetValue(GlobalSettings.FI, out string RegistationIDError))
+                    Check.That(_selfRegister.ValidationSummaryMessage).Contains(RegistationIDError.Trim());
+                else
+                    Check.That(_selfRegister.ValidationSummaryMessage).Contains(SSNError.Trim());
+
+                test.Info("SSN Error found in Summary Message");
+         
+===================================
+FIsRegistrationUserID -1
+if(StringKeys.FIsRegistrationUserID.TryGetValue(GlobalSettings.FI, out string RegistationIDError))
+                    Check.That(_selfRegister.ValidationSummaryMessage).Contains(RegistationIDError.Trim());
+                else
+                    Check.That(_selfRegister.ValidationSummaryMessage).Contains(SSNError.Trim());
+
+                test.Info("SSN Error found in Summary Message");
+   ============================
+FIsAccountStatusClosedCardProfile -1
+if (StringKeys.FIsAccountStatusClosedCardProfile.TryGetValue(GlobalSettings.FI, out string accountStatusFI))
+                    _editAccount.SelectAccountStatusAndSave(accountStatusFI, test);
+                else
+                    _editAccount.SelectAccountStatusAndSave(accountStatus, test);
+
+                Check.That(_accountChangeCodes.ErrorMessage).Contains(errorMessage);
+                test.Info("check error message after the reason not specified");
+================================================================
+FIsCheckPaymentMethod - 2
+if (StringKeys.FIsCheckPaymentMethod.TryGetValue(GlobalSettings.FI, out string selectPaymentMethodFI))
+                    {
+                        _editPaymentMethod.SetBankCheckDelayToPaymentMethod(selectPaymentMethodFI);
+                        test.Info("BankCheck Delay setted to Payment Method.");
+                    }
+========================
+FIsPayMePaymentMethod - 1
+                if (!(paymentMethod.ToLower().Equals("none") || String.IsNullOrEmpty(paymentMethod)))
+                {
+                    if (paymentMethod.ToLowerInvariant() == "payme")
+                    {
+                        StringKeys.FIsPayMePaymentMethod.TryGetValue(GlobalSettings.FI, out string value);
+                        paymentMethod = value;
+                        test.Info($"paymentMethod changed to {value}");
+                    }
+                    test.Info($"Check That: Payment Method: {_editPaymentMethod.PaymentMethod}. Expected value: {paymentMethod}");
+                    Check.That(paymentMethod.ToLower().Trim()).Equals(_editPaymentMethod.PaymentMethod.ToLower());
+                }
+==========================
+FIsGlobalMCCGroupName-7
+if (StringKeys.FIsGlobalMCCGroupName.TryGetValue(GlobalSettings.FI, out string mccgNameFI))
+                {
+                    _manageGlobalMCCG.SearchField = mccgNameFI;
+                    test.Info("Searched for MCCG: " + mccgNameFI);
+ _manageGlobalMCCG.Search();
+                    _manageGlobalMCCG.WaitForLoad();
+
+                    _manageGlobalMCCG.SetGlobalChkState(mccgNameFI, globalChkStatus);
+test.Info("Saved MCCG: " + mccgNameFI + " successfully.");
+else
+  _manageGlobalMCCG.SearchField = mccgName;
+                    test.Info("Searched for MCCG: " + mccgName);
+
+                    _manageGlobalMCCG.Search();
+                    _manageGlobalMCCG.WaitForLoad();
+
+                    _manageGlobalMCCG.SetGlobalChkState(mccgName, globalChkStatus);
+ test.Info("Saved MCCG: " + mccgName + " successfully.");
+====================
+APBrandingPerFI - 9
+ StringKeys.APBrandingPerFI.TryGetValue(GlobalSettings.FI, out string _apBranding);
+                    Settings.Scenario["RemitTemplate"] = _addRemitenceTemplate.Name = _apBranding + remitFormat;
+                    _addRemitenceTemplate.PaymentMethod = _apBranding;
+or
+StringKeys.APBrandingPerFI.TryGetValue(GlobalSettings.FI, out string value);
+_paymentMethod.SetListboxByText(value, SelectTextOptions.Exact, Driver, Settings, _paymentMethodXPath);	
+or
+ // Verify success message on UI    
+                    StringKeys.APBrandingPerFI.TryGetValue(GlobalSettings.FI, out string value);
+                    successMessage = String.Format(successMessage, value);
+                    test.Info("Expected successful message for payment method: " + successMessage);
+or
+ StringKeys.BankNoPerFI.TryGetValue(GlobalSettings.FI, out string _bNo);
+                //Settings.Scenario["BankNo"] = _bNo;
+                _createOrgPage.SetBankNumber(_bNo);
+                Settings.Scenario["BankNo"] = Settings.CeatedOrgBankNumber = _createOrgPage.GetBankNumber;
+                test.Info("Stored Bank Number of to be newly created org as: " + Settings.CeatedOrgBankNumber);
+or 
+	addsingle.SetProductTypeByText = StringKeys.APBrandingPerFI["PNC"];
+=============================================================
+BankNoPerFI - 10
+StringKeys.BankNoPerFI.TryGetValue(GlobalSettings.FI, out string bankNo);
+				Settings.Scenario["BankNo"] = bankNo;
+
+ StringKeys.BankNoPerFI.TryGetValue(GlobalSettings.FI, out string _bNo);
+                _manageGlobalMCCG.SetBankNo(_bNo);
+            
+                else
+                    _manageGlobalMCCG.SetTypeSearch("TSYS Name");
+===========================================================================
+RolesPurchaseLog -5
+	SetToggleCheckBoxviaLabel(StringKeys.RolesPurchaseLog[GlobalSettings.FI], true);
+===================================================================================
+MccGroup -1
+StringKeys.MccGroup.TryGetValue(GlobalSettings.FI, out string mccGroup);
+					_mccGroupProfile.SetMccGroup(mccGroup);
+===============================================================================================
+HierarchyWithSevenDigits -4
+
+ // For the selected FI's minimum length of hierarchy name should be 7
+                if (StringKeys.HierarchyWithSevenDigits.Contains(GlobalSettings.FI))
+                {
+                    hierarchyNum = hierarchyNum+"67";
+                }
+if(StringKeys.HierarchyWithSevenDigits.Contains(GlobalSettings.FI))
+                    _cardHierarchy.HierarchyNumber = "1234567";
+                else
+                    _cardHierarchy.HierarchyNumber = "12345";
+=================================================================================================
+   _hierarchyWithSevenDigits - 1
+this is for above
+=========================================================
+FIsWithoutAddCard - 2
+	if (StringKeys.FIsWithoutAddCard.Contains(_fiName))
+				{
+					switch (_fiName)
+					{
+						case "AKUSA":
+                            if (!Settings.Scenario.Keys.Contains("PurchasingCard"))
+                                _editOrgSettings.SetPurchasingCard();
+							break;
+						case "PNC":
+							_editOrgSettings.SetTEPurchasingCard();
+							break;
+						case "SYNOVUS":
+							_editOrgSettings.SetTECard();
+							break;
+					}
+or
+switch (_fiName)
+					{
+						case "AKUSA":
+							_editOrgSettings.ExpandCardsSection();
+							_editOrgSettings.SetPurchasingCard();
+                            Settings.Scenario["PurchasingCard"] = "true";
+							break;
+						case "PNC":
+							_editOrgSettings.ExpandCardsSection();
+							_editOrgSettings.SetTEPurchasingCard();
+							break;
+						case "SYNOVUS":
+							_editOrgSettings.ExpandCardsSection();
+							_editOrgSettings.SetTECard();
+							break;
+
+============================================================
+ProductionMerchantsSugaFLow - 2  
+ StringKeys.ProductionMerchantsSugaFLow.TryGetValue(GlobalSettings.FI, out string merchantName);
+                _merchantList.SearchMerchant("Merchant Name", merchantName);
+                test.Info("Searched to Merchant Name " + merchantName);
+============================================================================================
+ProductionMerchantsWithCodeByFI - 2  - not reqired same as above
+ProductionOrgs - 2 - Not required 
+=====================================================
+ProductionOrgsForPlog -1
+
+   // Use the Org that is stored
+                if (isPlog)
+                { 
+				    Settings.Scenario["OrganizationID"] = Settings.CeatedOrgId = (StringKeys.ProductionOrgsForPlog.TryGetValue(GlobalSettings.FI, out string val)) ? val : null;
+                    Settings.Scenario["CompanyNumber"] = (StringKeys.ProductionOrgCompNosForPlog.TryGetValue(GlobalSettings.FI, out string val1)) ? val1 : null;
+                    Settings.Scenario["EnableAPPurchaseLog"] = "true";
+                }
+                else
+                {
+                    Settings.Scenario["OrganizationID"] = Settings.CeatedOrgId = (StringKeys.ProductionOrgs.TryGetValue(GlobalSettings.FI, out string val)) ? val : null;
+                    Settings.Scenario["CompanyNumber"] = (StringKeys.ProductionOrgCompNos.TryGetValue(GlobalSettings.FI, out string val1)) ? val1 : null;
+                }
+============================
+ProductionOrgCompNos -3
+ StringKeys.ProductionOrgCompNos.TryGetValue(GlobalSettings.FI, out string orgNumber);
+  _manageAP.SearchCriteriaTextSearchValue = orgNumber;
+=========================================================
+ProductionUsernamesByFI - 3
+ -
+StringKeys.ProductionUsernamesByFI.TryGetValue(GlobalSettings.FI, out string userName);
+                _manageAccounts.SearchAndSelectUser(userName);
+                test.Info("Searched for Username: " + userName);
+================================
+BankCheckPayments - 2
+if (StringKeys.BankCheckPayments.Contains(GlobalSettings.FI))
+            {
+}
+=====================
+EnableARXExplicit -1
+if (StringKeys.EnableARXExplicit.Contains(GlobalSettings.FI))
+					{
+						_editOrgSettings.EnableARExchange(flag);
+						test.Info("Explicitly set ARX setting for FI:" + GlobalSettings.FI);
+					}
+==============================
+EnableMlogEffectiveDates,- 1
+  if (StringKeys.EnableMlogEffectiveDates.Contains(GlobalSettings.FI))
+                    {
+                        if (effectiveDates.Equals("Enabled"))
+                            _notifyMeMerchantLogSettings.EnableEffectiveDates = true;
+
+                        else if (effectiveDates.Equals("Disabled"))
+                            _notifyMeMerchantLogSettings.EnableEffectiveDates = false;
+                    }
+======================
+FIsWithoutSSN - 1   
+if (!StringKeys.FIsWithoutSSN.Contains(GlobalSettings.FI))
+                Settings.SSN = _createTestCards.SSN;
+            else
+                Settings.SSN = _createTestCards.ActivationId;
+============================
+NotificationReportNamePerFI- 4
+ switch (reportName)
+            {
+                case "Notifications":
+                    reportName = StringKeys.NotificationReportNamePerFI[GlobalSettings.FI];
+                    Settings.EnCompassExtentTest.Info($"reportName 'Notifications' set to {reportName}.");
+                    break;
+            }
+===========================
+MLogGridColumns - 1
+ CompareColumnsList(mLogSearch.MLogNewGrid.GetAllVisibleColumns(), StringKeys.MLogGridColumns);
+
+for above we we use below two methods
+ private void CompareColumnsList(List<String> displayedColumns, List<String> gridColumns)
+        {
+            foreach (string col in displayedColumns)
+            {
+                Check.That(gridColumns.Contains(col));
+                Settings.EnCompassExtentTest.Info($"Column {col} is present.");
+            }
+        }
+
+for above method - 2
+  public List<String> GetAllVisibleColumns()
+        {
+            List<IWebElement> visibleColumns = _driver.FindElements(By.XPath(_baseTableHeaderXPath + $"/th[not(contains(@class, 'detail'))]")).ToList<IWebElement>();
+            List<String> list = new List<string>();
+            foreach (IWebElement item in visibleColumns)
+            {
+                string columnName = item.Text;
+                list.Add(columnName);
+            }
+=====================
+touple ex:
+RecentActivitySettings - 1
+  //The Item 1 of the tuple is the org Id provided;
+                        string orgId = StringKeys.RecentActivitySettings(GlobalSettings.FI).Item1;
+                        Settings.EnCompassExtentTest.Info("Selecting the org with Id :" + orgId);
+                        orgModel.OrganizationId = orgId;
+
+===================================
+FIsWithMonthlyLimitEnabled - 1
+if(StringKeys.FIsWithMonthlyLimitEnabled.Contains(GlobalSettings.FI))
+                    editAccount.MonthlyLimit = monthlyLimit;
+====================================================
+EFundsFundingSource - 4
+
+_createOrgPage.ProcessorType = StringKeys.ProcessorTypePerFI(GlobalSettings.FI).Item1.ToString();
+
+
+            return list;
+        }
+
+
+
+
+
+                    
+

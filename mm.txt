@@ -1,0 +1,144 @@
+/// <summary>
+		/// In Mobile devices Select class do not work, esp with Safari, hence we need to inject Javascript
+		/// to fire off the change event post selection of the item
+		/// </summary>
+		public static void SelectDDLOptionByTextViaJS(this IWebDriver driver, GlobalSettings settings, string ddlXpath,
+            string ddlOptionText, bool isOnIframe = false, SelectTextOptions option = SelectTextOptions.Exact)
+        {
+            settings.EnCompassExtentTest.Info("Need to use Javascript to select DDL option as this is mobile device");
+
+            // verify input params are not null or empty
+            settings.EnCompassExtentTest.Info("Checking Global Setting object is not null");
+            Check.That(settings).IsNotNull();
+            settings.EnCompassExtentTest.Info("Checking ddlXpath is not null or empty");
+            Check.That(String.IsNullOrEmpty(ddlXpath)).IsFalse();
+            settings.EnCompassExtentTest.Info("Checking ddlOptionText object is not null or empty");
+            Check.That(String.IsNullOrEmpty(ddlOptionText)).IsFalse();
+
+            IJavaScriptExecutor executor = (IJavaScriptExecutor)driver;
+
+            // IF it is on an IFRAME then we need a different JS to interact within it
+            String dropdownScript = (isOnIframe) ? "var iframe = document.getElementsByTagName('iframe')[0];" +
+                //"var iframe = document.evaluate(\".//iframe[contains(@id,'IFrameModal_')]\", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null ).singleNodeValue;" +
+                "var innerDoc = iframe.contentDocument || iframe.contentWindow.document; " +
+                "var select = document.evaluate(\"" + ddlXpath + "\", innerDoc.body, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null ).singleNodeValue;"
+                    :
+                "var select = document.evaluate(\"" + ddlXpath + "\", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null ).singleNodeValue;";					
+
+            // Append the common JS script to iterate over the Select options and select the value
+            dropdownScript += "for(var i = 0; i < select.options.length; i++)" +
+                       "{if (select.options[i].text{ReplaceOption})" +
+                        "{ select.options[i].selected = true; } }" +
+                    "var ev = document.createEvent('Event');" +
+                    "ev.initEvent('change', true, true);" +
+                    "select.dispatchEvent(ev);";
+
+			// As per the Select Text Option set the function in the JS
+			switch (option)
+			{
+				case SelectTextOptions.StartsWith:
+					dropdownScript = dropdownScript.Replace("{ReplaceOption}", ".startsWith('" + ddlOptionText +"')");
+					break;
+				case SelectTextOptions.Contains:
+					dropdownScript = dropdownScript.Replace("{ReplaceOption}", ".includes('" + ddlOptionText + "')");
+					break;
+				case SelectTextOptions.EndsWith:
+					dropdownScript = dropdownScript.Replace("{ReplaceOption}", ".endsWith('" + ddlOptionText + "')");
+					break;
+				case SelectTextOptions.Exact:
+					dropdownScript = dropdownScript.Replace("{ReplaceOption}", "=='" + ddlOptionText + "'");
+					break;
+			}
+
+					settings.EnCompassExtentTest.Debug("Java script to be executed : " + dropdownScript);
+
+            if (isOnIframe)
+            {
+                driver.SwitchTo().DefaultContent();
+                settings.EnCompassExtentTest.Debug("Driver Switched to Default window from Iframe");
+            }
+            executor.ExecuteScript(dropdownScript);
+            settings.EnCompassExtentTest.Debug("Java script executed !!");
+
+            if (isOnIframe)
+            {
+                IWebElement iframe = driver.FindElement(By.XPath(".//iframe[contains(@id,'IFrameModal_')]"));
+                settings.EnCompassExtentTest.Debug("Got Iframe as WebElement !!");
+                driver.SwitchTo().Frame(iframe);
+                settings.EnCompassExtentTest.Debug("Driver Switched back to Iframe");
+            }
+        }
+
+        /// <summary>
+		/// In Mobile devices Select class do not work, esp with Safari, hence we need to inject Javascript
+		/// to fire off the change event post selection of the item
+		/// </summary>
+		public static void SelectDDLOptionByIndexViaJS(this IWebDriver driver, GlobalSettings settings, string ddlXpath,
+            string index, bool isOnIframe = false)
+        {
+            // verify input params are not null
+            Check.That(settings).IsNotNull();
+            Check.That(! String.IsNullOrEmpty(ddlXpath)).IsTrue();
+            Check.That(! String.IsNullOrEmpty(index)).IsTrue();
+
+            IJavaScriptExecutor executor = (IJavaScriptExecutor)driver;
+
+            // IF it is on an IFRAME then we need a different JS to interact within it
+            String dropdownScript = (isOnIframe) ? "var iframe = document.getElementsByTagName('iframe')[0];" +
+                "var innerDoc = iframe.contentDocument || iframe.contentWindow.document; " +
+                "var select = document.evaluate(\"" + ddlXpath + "\", innerDoc.body, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null ).singleNodeValue;"
+                    :
+                "var select = document.evaluate(\"" + ddlXpath + "\", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null ).singleNodeValue;";
+
+            // Append the common JS script to iterate over the Select options and select the value
+            dropdownScript += "select.options[" + index + "].selected = true;" +
+                    "var ev = document.createEvent('Event');" +
+                    "ev.initEvent('change', true, true);" +
+                    "select.dispatchEvent(ev);";
+
+            settings.EnCompassExtentTest.Debug("Java script to be executed : " + dropdownScript);
+            
+            if (isOnIframe)
+            {
+                driver.SwitchTo().DefaultContent();
+                settings.EnCompassExtentTest.Debug("Driver Switched to Default window from Iframe");
+            }
+            executor.ExecuteScript(dropdownScript);
+            settings.EnCompassExtentTest.Debug("Java script executed !!");
+
+            if (isOnIframe)
+            {
+                IWebElement iframe = driver.FindElement(By.XPath(".//iframe[contains(@id,'IFrameModal_')]"));
+                settings.EnCompassExtentTest.Debug("Got Iframe as WebElement !!");
+                driver.SwitchTo().Frame(iframe);
+                settings.EnCompassExtentTest.Debug("Driver Switched back to Iframe");
+            }
+        }
+
+        /// <summary>
+        /// Hack to handle unwanted popups on mobile browsers refer - https://www.browserstack.com/automate/handle-popups-alerts-prompts-in-automated-tests
+        /// Note the below doesn't work, its just a placeholder for future
+        /// </summary>  
+              //call
+                                             // Mobile specific change
+			if (GlobalSettings.DeviceType.Equals(GlobalSettings.Device.MOBILE.ToString()))
+				Driver.AllowPopUpsOnMobileBrowsersOnActualDevices(Settings.EnCompassExtentTest);
+        public static void AllowPopUpsOnMobileBrowsersOnActualDevices(this IWebDriver driver, ExtentTest test)
+		{
+			if (GlobalSettings.MobileOS.Equals(GlobalSettings.MobileOSList.ANDROID.ToString()))
+			{
+				(driver as AndroidDriver<IWebElement>).Context = ("NATIVE_APP");
+				IWebElement _androidPopupContinueButton = driver.FindElement(By.XPath(".//android.widget.Button[@text='Continue']"));
+				test.Info("Got _androidPopupContinueButton" + _androidPopupContinueButton.Text);
+				_androidPopupContinueButton.JSClickWithFocus(driver);
+				test.Info("Clicked on Continue button to handle unwanted popup on Android device");
+			}
+			else
+			{
+				(driver as IOSDriver<IWebElement>).Context = ("NATIVE_APP");
+				IWebElement _iOSPopupAllowButton = driver.FindElement(By.Id("Allow"));
+				test.Info("Got _iOSPopupAllowButton" + _iOSPopupAllowButton.Text);
+				_iOSPopupAllowButton.JSClickWithFocus(driver);
+				test.Info("Clicked on Allow button to handle unwanted popup on iOS device");
+			}
+		}
